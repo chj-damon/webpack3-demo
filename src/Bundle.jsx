@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 
-class Bundle extends PureComponent {
+class Bundle extends React.PureComponent {
     state = {
         mod: null
     }
