@@ -17,7 +17,7 @@ const themeVariables = require('./theme')();
 
 module.exports = {
     entry: {
-        app: './src/index.jsx'
+        app: ['./src/index.jsx', 'webpack-hot-middleware/client']
     },
     output: {
         filename: '[name].js',
@@ -140,13 +140,5 @@ module.exports = {
             title: 'Webpack@3'
         })
     ],
-    devtool: 'inline-source-map',
-    devServer: {
-        port: 8888,
-        host: 'localhost',
-        historyApiFallback: true,
-        noInfo: false,
-        stats: 'minimal',
-        publicPath
-    }
+    devtool: 'inline-source-map'
 };
