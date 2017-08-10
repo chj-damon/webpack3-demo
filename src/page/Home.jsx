@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getChallenges } from '../redux/actions/challenge';
 
-const Home = () => (
-    <div>
-        <h1>Welcome to the React World!!!</h1>
-    </div>
-);
-export default Home;
+import ChallengesList from './ChallengesList';
+
+class Home extends PureComponent {
+    componentDidMount() {
+        if (this.props.challenges.length === 0) {
+            this.props.getChallenges();
+        }
+    }
+    render() {
+        return (
+            <ChallengesList 
+                challenges={this.props.challenges}
+            />
+        );
+    }
+}
+
+const mapStateToProps = state => ({
+    challenges: state.challengesReducer.challenges
+});
+const mapDispatchToProps = dispatch => bindActionCreators({
+    getChallenges
+}, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

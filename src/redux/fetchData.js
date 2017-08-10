@@ -7,11 +7,10 @@ const JSONInstance = axios.create({
     },
     transformResponse: [(resp) => {
         const response = JSON.parse(resp);
-        response.code = resp.success ? 200 : resp.code;
         return response;
     }]
 });
 
-export default function get(url) {
+export function get(url) {
     return JSONInstance.get(url);
 }

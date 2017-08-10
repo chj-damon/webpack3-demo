@@ -143,5 +143,5 @@ module.exports = {
             title: 'Webpack@3'
         })
     ],
-    devtool: 'inline-source-map'
+    devtool: '#eval'
 };
