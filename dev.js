@@ -16,9 +16,13 @@ app.use(webpackDevMiddleware(webpackCompiler, {
         chunks: false, // this reduces the amount of stuff I see in my terminal; configure to your needs
         'errors-only': true
     },
+    hot: true,
     publicPath: webpackDevConfig.output.publicPath
 }));
-app.use(webpackHotMiddleware(webpackCompiler));
+app.use(webpackHotMiddleware(webpackCompiler, {
+    log: console.log,
+    reload: true
+}));
 
 // 加载指定目录静态资源
 app.use(express.static(path.join(__dirname, 'dist')));

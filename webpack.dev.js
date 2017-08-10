@@ -17,7 +17,10 @@ const themeVariables = require('./theme')();
 
 module.exports = {
     entry: {
-        app: ['./src/index.jsx', 'webpack-hot-middleware/client']
+        app: [
+            'webpack-hot-middleware/client?path=http://localhost:8888/__webpack_hmr&reload=true',
+            './src/index.jsx'
+        ]
     },
     output: {
         filename: '[name].js',
