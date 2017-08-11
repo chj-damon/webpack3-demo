@@ -10,7 +10,9 @@ const app = express();
 const webpackCompiler = webpack(webpackDevConfig);
 
 app.use(webpackDevMiddleware(webpackCompiler, {
-    historyApiFallback: true,
+    historyApiFallback: {
+        index: 'dist/index.html'
+    },
     noInfo: false,
     stats: {
         colors: true,

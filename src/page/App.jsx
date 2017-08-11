@@ -2,9 +2,26 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Menu } from 'antd';
 
-import Home from './demo/Home';
-import About from './demo/About';
-import Topics from './demo/Topics';
+import loadHome from 'bundle-loader?lazy!./demo/Home';
+import loadAbout from 'bundle-loader?lazy!./demo/About';
+import loadTopics from 'bundle-loader?lazy!./demo/Topics';
+import Bundle from '../Bundle';
+
+const Home = props => (
+    <Bundle load={loadHome}>
+        {Comp => <Comp {...props} />}
+    </Bundle>
+);
+const About = props => (
+    <Bundle load={loadAbout}>
+        {Comp => <Comp {...props} />}
+    </Bundle>
+);
+const Topics = props => (
+    <Bundle load={loadTopics}>
+        {Comp => <Comp {...props} />}
+    </Bundle>
+);
 
 const App = () => (
     <Router>

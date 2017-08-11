@@ -10,7 +10,7 @@ const HappyPack = require('happypack');
 const AutoDllPlugin = require('autodll-webpack-plugin');
 // const lessToJs = require('less-vars-to-js');
 
-const publicPath = '/';
+const publicPath = '/dist';
 // antd自定义主题
 // const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './src/assets/ant-theme-vars.less'), 'utf8'));
 const themeVariables = require('./theme')();
@@ -18,7 +18,7 @@ const themeVariables = require('./theme')();
 module.exports = {
     entry: {
         app: [
-            'webpack-hot-middleware/client?path=http://localhost:8888/__webpack_hmr&reload=true',
+            'webpack-hot-middleware/client?reload=true',
             './src/index.jsx'
         ]
     },
