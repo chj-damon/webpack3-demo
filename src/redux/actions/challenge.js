@@ -1,14 +1,14 @@
 import { get } from '../fetchData';
-import { backendServer } from '../config';
+import { mockServer } from '../config';
 
 export const getChallenges = () => async (dispatch) => {
     try {
-        const url = `${backendServer}/challenges`;
+        const url = `${mockServer}/challenges`;
         const response = await get(url);
         if (response.data.success) {
             dispatch({
                 type: 'GET_CHALLENGES',
-                payload: response.data.challenges
+                payload: response.data.data
             });
         }
     } catch (err) {

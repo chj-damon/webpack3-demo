@@ -13,9 +13,11 @@ class Home extends PureComponent {
     }
     render() {
         return (
-            <ChallengesList 
-                challenges={this.props.challenges}
-            />
+            <div>
+                <ChallengesList 
+                    challenges={this.props.challenges}
+                />
+            </div>
         );
     }
 }

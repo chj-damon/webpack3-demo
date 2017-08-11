@@ -1,12 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const ChallengesList = ({ challenges }) => (
     <div>
         {
-            challenges.map(challenge => (<div key={challenge.id}>
-                <Link to={`/rooms/${challenge.id}`}>{challenge.title}</Link>
-            </div>))
+            challenges.map(challenge => <div key={challenge.id}><Link to={`/rooms/${challenge.id}`}>{challenge.title}</Link></div>)
         }
     </div>
 );
