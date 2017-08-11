@@ -6,6 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=dev node dev.js",
     "build": "cross-env NODE_ENV=prod webpack -p --progress --colors",
+    "prod": "cross-env NODE_ENV=prod node server.js",
     "test": "jest",
     "test:watch": "npm test -- --watch"
   },
