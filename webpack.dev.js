@@ -10,7 +10,7 @@ const HappyPack = require('happypack');
 const AutoDllPlugin = require('autodll-webpack-plugin');
 // const lessToJs = require('less-vars-to-js');
 
-const publicPath = '/dist';
+const publicPath = '/';
 // antd自定义主题
 // const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './src/assets/ant-theme-vars.less'), 'utf8'));
 const themeVariables = require('./theme')();
@@ -124,12 +124,12 @@ module.exports = {
         // momentjs包含大量本地化代码，需筛选
         new webpack.ContextReplacementPlugin(/moment[\\]locale$/, /zh-cn/),
         new webpack.optimize.OccurrenceOrderPlugin(true),
-        new BundleAnalyzerPlugin({
-            analyzerMode: 'static',
-            reportFilename: 'report.html',
-            openAnalyzer: false,
-            generateStatsFile: false
-        }),
+        // new BundleAnalyzerPlugin({
+        //     analyzerMode: 'static',
+        //     reportFilename: 'report.html',
+        //     openAnalyzer: false,
+        //     generateStatsFile: false
+        // }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('development')

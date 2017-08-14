@@ -15,9 +15,9 @@ class Room extends PureComponent {
         this.state = {
             code: ''
         };
-        socket.on('receive code', payload => this.updateCodeFromSocket(payload));
     }
     componentDidMount() {
+        socket.on('receive', this.updateCodeFromSocket);
         if (this.props.challenge.id === undefined) {
             this.props.getChallenges();
         } else {
@@ -38,7 +38,8 @@ class Room extends PureComponent {
     }
 
     updateCodeFromSocket = (payload) => {
-        this.setState({ code: payload.newCode });
+        console.log(payload);
+        // this.setState({ code: payload.newCode });
     }
 
     handleChange = (newText) => {
@@ -71,7 +72,7 @@ class Room extends PureComponent {
 const mapStateToProps = (state, ownProps) => {
     const challenges = state.challengesReducer.challenges;
     if (challenges.length > 0) {
-        const challenge = challenges.filter(challenge => challenge.id === ownProps.params.id)[0];
+        const challenge = challenges.filter(challenge => challenge.id === ownProps.match.params.id)[0];
         return { challenge };
     }
     return {

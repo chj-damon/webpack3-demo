@@ -25,12 +25,15 @@ io.on('connection', (socket) => {
         console.log('user disconnected.');
     });
     socket.on('room', (data) => {
+        console.log(1, data);
         socket.join(data.room);
     });
     socket.on('leave', (data) => {
+        console.log(2, data);
         socket.leave(data.room);
     });
     socket.on('coding', (data) => {
-        socket.broadcast.to(data.room).emit('receive code', data);
+        console.log(3, data);
+        io.to(data.room).emit('receive', '123');
     });
 });
