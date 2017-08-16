@@ -1,21 +1,23 @@
+import './style.less';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getChallenges } from '../redux/actions/challenge';
+import { fetchRoomList } from '../redux/actions/room';
 
-import ChallengesList from './ChallengesList';
+import RoomsList from './RoomsList';
 
 class Home extends PureComponent {
     componentDidMount() {
-        if (this.props.challenges.length === 0) {
-            this.props.getChallenges();
+        if (this.props.rooms.length === 0) {
+            this.props.fetchRoomList();
         }
     }
     render() {
         return (
-            <div>
-                <ChallengesList 
-                    challenges={this.props.challenges}
+            <div className="page">
+                <h2>欢迎来到聊天室，请选择您感兴趣的房间</h2>
+                <RoomsList 
+                    rooms={this.props.rooms}
                 />
             </div>
         );
@@ -23,9 +25,9 @@ class Home extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-    challenges: state.challengesReducer.challenges
+    rooms: state.roomsReducer.rooms
 });
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getChallenges
+    fetchRoomList
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

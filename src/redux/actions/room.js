@@ -1,13 +1,13 @@
 import { get } from '../fetchData';
 import { mockServer } from '../config';
 
-export const getChallenges = () => async (dispatch) => {
+export const fetchRoomList = () => async (dispatch) => {
     try {
-        const url = `${mockServer}/challenges`;
+        const url = `${mockServer}/rooms`;
         const response = await get(url);
         if (response.data.success) {
             dispatch({
-                type: 'GET_CHALLENGES',
+                type: 'FETCH_ROOM',
                 payload: response.data.data
             });
         }

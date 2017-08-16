@@ -1,12 +1,12 @@
 const initialState = {
-    challenges: []
+    rooms: []
 };
-export default function challenges(state = initialState, action) {
+export default function rooms(state = initialState, action) {
     switch (action.type) {
-        case 'GET_CHALLENGES':
+        case 'FETCH_ROOM':
             return {
                 ...state,
-                challenges: action.payload
+                rooms: action.payload
             }; 
 
         default: 

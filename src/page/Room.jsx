@@ -2,11 +2,9 @@ import io from 'socket.io-client';
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Codemirror from 'react-codemirror';  
-import 'codemirror/lib/codemirror.css';  
-import 'codemirror/theme/monokai.css';  
-import 'codemirror/mode/javascript/javascript.js';
-import { getChallenges } from '../redux/actions/challenge';
+import { Input, Button } from 'antd';
+
+import { fetchRoomsList } from '../redux/actions/room';
 
 const socket = io();
 class Room extends PureComponent {
@@ -18,22 +16,22 @@ class Room extends PureComponent {
     }
     componentDidMount() {
         socket.on('receive', this.updateCodeFromSocket);
-        if (this.props.challenge.id === undefined) {
-            this.props.getChallenges();
+        if (this.props.room.id === undefined) {
+            this.props.fetchRoomsList();
         } else {
             socket.emit('room', {
-                room: this.props.challenge.id
+                room: this.props.room.id
             });
         }
     }
     componentWillReceiveProps(nextProps) {
         socket.emit('room', {
-            room: nextProps.challenge.id
+            room: nextProps.room.id
         });
     }
     componentWillUnmount() {
         socket.emit('leave', {
-            room: this.props.challenge.id
+            room: this.props.room.id
         });
     }
 
@@ -45,44 +43,44 @@ class Room extends PureComponent {
     handleChange = (newText) => {
         this.setState({ code: newText });
         socket.emit('coding', {
-            room: this.props.challenge.id,
+            room: this.props.room.id,
             newCode: newText
         });
     };
 
     render() {
-        const options = {
-            lineNumbers: true,
-            mode: 'javascript',
-            theme: 'monokai'
-        };
         return (
-            <div>
-                <h1>{this.props.challenge.title}</h1>
-                <p>{this.props.challenge.description}</p>
-                <Codemirror 
-                    value="hello world!"
-                    onChange={this.handleChange} 
-                    options={options} 
-                />
+            <div className="room-content">
+                <div className="room-title">房间号</div>
+                <div className="room-news-list-content">
+                    <div className="news-list">消息列表</div>
+                    <div className="news-send">
+                        <Input />
+                        <Button>发送</Button>
+                    </div>
+                </div>
+                <div className="room-person-list-content">
+                    <div className="person-total">房间总人数</div>
+                    <div className="person-list">房间内人员列表</div>
+                </div>
             </div>
         );
     }
 }
 const mapStateToProps = (state, ownProps) => {
-    const challenges = state.challengesReducer.challenges;
-    if (challenges.length > 0) {
-        const challenge = challenges.filter(challenge => challenge.id === ownProps.match.params.id)[0];
-        return { challenge };
+    const rooms = state.roomsReducer.rooms;
+    if (rooms.length > 0) {
+        const room = rooms.filter(room => room.id === ownProps.match.params.id)[0];
+        return { room };
     }
     return {
-        challenge: {
+        room: {
             title: '',
             description: ''
         }
     };
 };
 const mapDispatchToProps = dispatch => bindActionCreators({
-    getChallenges
+    fetchRoomsList
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Room);

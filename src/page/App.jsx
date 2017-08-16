@@ -44,7 +44,7 @@ const App = () => (
                 theme="dark" 
                 mode="horizontal"
             >
-                <Menu.Item key="1"><Link to="/">Home</Link></Menu.Item>
+                <Menu.Item key="1"><Link to="/">首页</Link></Menu.Item>
             </Menu>
   
             <Route exact path="/" component={Home} />

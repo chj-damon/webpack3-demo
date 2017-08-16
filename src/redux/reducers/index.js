@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 
-import challenge from './challenge';
+import room from './room';
 
 /**
  * 合并reducer
  */
 const rootReducer = combineReducers({
-    challengesReducer: challenge
+    roomsReducer: room
 });
 
 export default rootReducer;
