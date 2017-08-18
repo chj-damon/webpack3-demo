@@ -61,7 +61,7 @@ class Room extends PureComponent {
                     </div>
                 </div>
                 <div className="room-person-list-content">
-                    <div className="person-total">房间总人数(/)</div>
+                    <div className="person-total">房间总人数(  )</div>
                     <div className="person-list">房间内人员列表</div>
                 </div>
             </div>

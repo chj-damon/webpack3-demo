@@ -10,9 +10,7 @@ const app = express();
 const webpackCompiler = webpack(webpackDevConfig);
 
 app.use(webpackDevMiddleware(webpackCompiler, {
-    historyApiFallback: {
-        index: './index.html'
-    },
+    historyApiFallback: false,
     noInfo: false,
     stats: {
         colors: true,
@@ -32,7 +30,7 @@ app.use(express.static(path.join(__dirname, webpackDevConfig.output.publicPath))
 
 // 配置任何请求都转到index.html，而index.html会根据React-Router规则去匹配任何一个route
 app.get('*', (request, response) => {
-    response.sendFile(path.resolve(__dirname, 'index.html'));
+    response.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
 
 const server = app.listen(8888, () => {
