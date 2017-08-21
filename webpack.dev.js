@@ -104,8 +104,7 @@ module.exports = {
         new AutoDllPlugin({
             inject: true, // will inject the DLL bundle to index.html
             debug: true,
-            filename: '[name]_[hash].js',
-            path: './dll',
+            filename: '[name].js',
             entry: {
                 vendor: [
                     'react',

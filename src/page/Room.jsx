@@ -79,8 +79,8 @@ const mapStateToProps = (state, ownProps) => {
             title: '',
             description: ''
         },
-        newsList: state.room.newsList,
-        userList: state.room.userList
+        newsList: state.roomsReducer.newsList,
+        userList: state.roomsReducer.userList
     };
 };
 const mapDispatchToProps = dispatch => bindActionCreators({

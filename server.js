@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const socket = require('socket.io');
 
 const app = express();
@@ -8,8 +9,19 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // 配置任何请求都转到index.html，而index.html会根据React-Router规则去匹配任何一个route
-app.get('*', (request, response) => {
-    response.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+app.use((req, res) => {
+    fs.readFile(path.resolve(__dirname, 'dist', 'index.html'), (err, data) => {
+        if (err) {
+            console.log(err);
+            res.send('后台错误');
+        } else {
+            res.writeHead(200, {
+                'Content-Type': 'text/html',
+                Connection: 'keep-alive'
+            });
+            res.end(data);
+        }
+    });
 });
 
 const server = app.listen(8888, () => {
