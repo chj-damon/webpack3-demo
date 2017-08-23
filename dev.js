@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const fs = require('fs');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -11,39 +10,18 @@ const app = express();
 const webpackCompiler = webpack(webpackDevConfig);
 
 app.use(webpackDevMiddleware(webpackCompiler, {
-    historyApiFallback: false,
-    noInfo: false,
+    filename: webpackDevConfig.output.filename,
+    publicPath: webpackDevConfig.output.publicPath,
     stats: {
         colors: true,
-        chunks: false, // this reduces the amount of stuff I see in my terminal; configure to your needs
-        'errors-only': true
-    },
-    hot: true,
-    publicPath: webpackDevConfig.output.publicPath
+        hash: false,
+        timings: true,
+        chunks: false,
+        chunkModules: false,
+        modules: false
+    }
 }));
-app.use(webpackHotMiddleware(webpackCompiler, {
-    log: console.log,
-    reload: true
-}));
-
-// 加载指定目录静态资源
-app.use(express.static(path.join(__dirname, webpackDevConfig.output.publicPath)));
-
-// 配置任何请求都转到index.html，而index.html会根据React-Router规则去匹配任何一个route
-app.use((req, res) => {
-    fs.readFile(path.resolve(__dirname, 'index.html'), (err, data) => {
-        if (err) {
-            console.log(err);
-            res.send('后台错误');
-        } else {
-            res.writeHead(200, {
-                'Content-Type': 'text/html',
-                Connection: 'keep-alive'
-            });
-            res.end(data);
-        }
-    });
-});
+app.use(webpackHotMiddleware(webpackCompiler));
 
 const server = app.listen(8888, () => {
     console.log('App listening at port 8888');

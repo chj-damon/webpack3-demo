@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dll": "rimraf lib && webpack --config webpack.dll.js --progress",
     "start": "cross-env NODE_ENV=dev node dev.js",
     "build": "cross-env NODE_ENV=prod webpack -p --progress --colors",
     "prod": "cross-env NODE_ENV=prod node server.js",
@@ -34,7 +35,7 @@
     "socket.io": "^2.0.3"
   },
   "devDependencies": {
-    "autodll-webpack-plugin": "^0.2.1",
+    "add-asset-html-webpack-plugin": "^2.1.1",
     "autoprefixer": "^7.1.2",
     "babel": "^6.23.0",
     "babel-core": "^6.25.0",

@@ -5,29 +5,31 @@ const autoPrefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin');
 const HappyPack = require('happypack');
-const AutoDllPlugin = require('autodll-webpack-plugin');
-// const lessToJs = require('less-vars-to-js');
 
-const publicPath = '/';
+const BUILD_DIR = path.resolve(__dirname, './dist')
+const APP_DIR = path.resolve(__dirname, './src');
 // antd自定义主题
-// const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './src/assets/ant-theme-vars.less'), 'utf8'));
 const themeVariables = require('./theme')();
 
 module.exports = {
     entry: {
         app: [
             'webpack-hot-middleware/client?reload=true',
-            './src/index.jsx'
+            `${APP_DIR}/index.jsx`
         ]
     },
     output: {
-        filename: '[name].js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath
+        path: BUILD_DIR,
+        publicPath: '/',
+        filename: '[name].js'
     },
     resolve: {
+        modules: [
+            'node_modules',
+            APP_DIR
+        ],
         extensions: ['.js', '.jsx', '.json']
     },
     module: {
@@ -37,6 +39,7 @@ module.exports = {
                 use: [
                     'happypack/loader?id=jsx'
                 ],
+                include: APP_DIR,
                 exclude: /node_modules/
             },
             {
@@ -101,34 +104,21 @@ module.exports = {
             threads: 2,
             loaders: ['babel-loader']
         }),
-        new AutoDllPlugin({
-            inject: true, // will inject the DLL bundle to index.html
-            debug: true,
-            filename: '[name].js',
-            entry: {
-                vendor: [
-                    'react',
-                    'react-dom',
-                    'react-router', 
-                    'redux', 
-                    'react-redux', 
-                    'babel-polyfill',
-                    'axios',
-                    'qs',
-                    'moment'
-                ]
-            }
+        new HtmlWebpackPlugin({
+            template: 'index.html'
         }),
         new ExtractTextPlugin('styles.css'),
+        new webpack.DllReferencePlugin({
+            context: __dirname,
+            manifest: require('./lib/manifest.json')
+        }),
+        new AddAssetHtmlWebpackPlugin({
+            filepath: require.resolve('./lib/dll.vendor.js'),
+            includeSourcemap: true
+        }),
         // momentjs包含大量本地化代码，需筛选
         new webpack.ContextReplacementPlugin(/moment[\\]locale$/, /zh-cn/),
         new webpack.optimize.OccurrenceOrderPlugin(true),
-        // new BundleAnalyzerPlugin({
-        //     analyzerMode: 'static',
-        //     reportFilename: 'report.html',
-        //     openAnalyzer: false,
-        //     generateStatsFile: false
-        // }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('development')
@@ -136,11 +126,8 @@ module.exports = {
         }),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(), // enable HMR
-        new WebpackManifestPlugin(),
-        new HtmlWebpackPlugin({
-            template: 'index.html',
-            title: 'Webpack@3'
-        })
+        new WebpackManifestPlugin()
     ],
-    devtool: '#eval'
+    cache: true,
+    devtool: 'eval'
 };

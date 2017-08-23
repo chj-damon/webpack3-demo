@@ -1,6 +1,6 @@
 import './style.less';
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import { Menu } from 'antd';
 
 import Bundle from '../Bundle';
@@ -45,7 +45,7 @@ const App = () => (
                 theme="dark" 
                 mode="horizontal"
             >
-                <Menu.Item key="1"><Link to="/">首页</Link></Menu.Item>
+                <Menu.Item key="1"><Link to="/">首页2</Link></Menu.Item>
             </Menu>
   
             <Route exact path="/" component={Home} />
