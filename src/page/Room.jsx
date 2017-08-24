@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Input, Button } from 'antd';
 
-import { fetchRoomsList } from '../redux/actions/room';
+import { fetchRoomList } from '../redux/actions/room';
 
 const { TextArea } = Input;
 const socket = io();
@@ -18,7 +18,7 @@ class Room extends PureComponent {
     componentDidMount() {
         socket.on('receive', this.updateCodeFromSocket);
         if (this.props.room.id === undefined) {
-            this.props.fetchRoomsList();
+            this.props.fetchRoomList();
         } else {
             socket.emit('room', {
                 room: this.props.room.id
@@ -84,6 +84,6 @@ const mapStateToProps = (state, ownProps) => {
     };
 };
 const mapDispatchToProps = dispatch => bindActionCreators({
-    fetchRoomsList
+    fetchRoomList
 }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(Room);
