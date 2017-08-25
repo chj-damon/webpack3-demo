@@ -113,11 +113,16 @@ module.exports = {
                     'babel-polyfill',
                     'axios',
                     'qs',
-                    'moment'
+                    'moment',
+                    'd3'
                 ]
             }
         }),
-        new ExtractTextPlugin('styles.css'),
+        new ExtractTextPlugin({
+            filename: 'styles.css',
+            disable: false,
+            allChunks: true
+        }),
         // momentjs包含大量本地化代码，需筛选
         new webpack.ContextReplacementPlugin(/moment[\\]locale$/, /zh-cn/),
         new webpack.optimize.OccurrenceOrderPlugin(true),
