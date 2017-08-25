@@ -5,7 +5,7 @@ const autoPrefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const WebpackManifestPlugin = require('webpack-manifest-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HappyPack = require('happypack');
 const AutoDllPlugin = require('autodll-webpack-plugin');
 // const lessToJs = require('less-vars-to-js');
@@ -22,7 +22,9 @@ module.exports = {
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
-        publicPath
+        publicPath,
+        libraryTarget: 'var',
+        library: 'XLSX'
     },
     resolve: {
         extensions: ['.js', '.jsx', '.json']
@@ -121,12 +123,12 @@ module.exports = {
         // momentjs包含大量本地化代码，需筛选
         new webpack.ContextReplacementPlugin(/moment[\\]locale$/, /zh-cn/),
         new webpack.optimize.OccurrenceOrderPlugin(true),
-        new BundleAnalyzerPlugin({
-            analyzerMode: 'static',
-            reportFilename: 'report.html',
-            openAnalyzer: false,
-            generateStatsFile: false
-        }),
+        // new BundleAnalyzerPlugin({
+        //     analyzerMode: 'static',
+        //     reportFilename: 'report.html',
+        //     openAnalyzer: false,
+        //     generateStatsFile: false
+        // }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('development')
@@ -148,5 +150,10 @@ module.exports = {
         noInfo: false,
         stats: 'minimal',
         publicPath
+    },
+    node: {
+        fs: false,
+        process: false,
+        Buffer: false
     }
 };

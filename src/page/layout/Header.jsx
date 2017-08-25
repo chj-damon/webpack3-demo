@@ -8,6 +8,7 @@ const Header = () => (
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/roster">Roster</Link></li>
                 <li><Link to="/schedule">Schedule</Link></li>
+                <li><Link to="/sheet">Sheet</Link></li>
             </ul>
         </nav>
     </header>
