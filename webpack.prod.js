@@ -48,7 +48,15 @@ module.exports = {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]']
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            camelCase: true,
+                            importLoaders: 1,
+                            localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
+                        }
+                    }]
                 })
             },
             {

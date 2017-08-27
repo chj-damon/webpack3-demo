@@ -11,22 +11,23 @@ const AutoDllPlugin = require('autodll-webpack-plugin');
 // const lessToJs = require('less-vars-to-js');
 
 const publicPath = '/';
-const SRC_DIR = path.join(__dirname, 'src');
+const SRC_DIR = path.resolve(__dirname, 'src');
+const BUILD_DIR = path.resolve(__dirname, 'dist');
 // antd自定义主题
 // const themeVariables = lessToJs(fs.readFileSync(path.join(__dirname, './src/assets/ant-theme-vars.less'), 'utf8'));
 const themeVariables = require('./theme')();
 
 module.exports = {
     entry: {
-        app: './src/index.jsx'
+        app: `${SRC_DIR}/index.jsx`
     },
     output: {
         filename: '[name].js',
-        path: path.resolve(__dirname, 'dist'),
+        path: BUILD_DIR,
         publicPath
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.json']
+        extensions: ['.jsx', '.js', '.json']
     },
     module: {
         rules: [
@@ -48,7 +49,15 @@ module.exports = {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]']
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            modules: true,
+                            camelCase: true,
+                            importLoaders: 1,
+                            localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
+                        }
+                    }]
                 })
             },
             {

@@ -2,8 +2,23 @@ html {
     font-size: 62.5%;
     box-sizing: border-box;
 }
+
+body {
+    background: #F1F1F1;
+}
+
 *,
 *::before,
 *::after {
     box-sizing: inherit;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
 }

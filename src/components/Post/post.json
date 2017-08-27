@@ -1,0 +1,18 @@
+{
+    "posts": [{
+        "title": "how to build a progressive web app",
+        "slug": "how-to-build-a-progressive-web-app",
+        "excerpt": "One of the easiest way to build a pwa",
+        "content": "One of the easiest way to build a pwaOne of the easiest way to build a pwaOne of the easiest way to build a pwaOne of the easiest way to build a pwaOne of the easiest way to build a pwa"
+    }, {
+        "title": "testing with Jest and Enzyme",
+        "slug": "testing-with-jest-and-enzyme",
+        "excerpt": "Jest can be used in projects to test functionalities and components as well.",
+        "content": "Jest can be used in projects to test functionalities and components as well.Jest can be used in projects to test functionalities and components as well.Jest can be used in projects to test functionalities and components as well.Jest can be used in projects to test functionalities and components as well.Jest can be used in projects to test functionalities and components as well."
+    }, {
+        "title": "Getting started with css modules",
+        "slug": "getting-started-with-css-modules",
+        "excerpt": "A css module is a css file with scope.",
+        "content": "A css module is a css file with scope.A css module is a css file with scope.A css module is a css file with scope.A css module is a css file with scope.A css module is a css file with scope.A css module is a css file with scope."
+    }]
+}
