@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-
-import App from './page/App';
+import { HashRouter as Router } from 'react-router-dom';
+import 'normalize.css';
+import './base.css';
+import App from './pages/App';
 
 ReactDOM.render(
-    <BrowserRouter>
+    <Router>
         <App />
-    </BrowserRouter>,
+    </Router>,
     document.getElementById('app')
 );

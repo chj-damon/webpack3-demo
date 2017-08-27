@@ -1,4 +1,4 @@
-import get from '../src/fetchData';
+import get from './fetchData';
 
 const fetchJSON = async () => {
     try {

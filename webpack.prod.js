@@ -48,7 +48,7 @@ module.exports = {
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader']
+                    use: ['css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]']
                 })
             },
             {
@@ -89,7 +89,10 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin('styles.css'),
+        new ExtractTextPlugin({
+            filename: 'styles.css',
+            allChunks: true
+        }),
         new webpack.ContextReplacementPlugin(/moment[\\]locale$/, /zh-cn/),
         new CompressionPlugin({
             asset: '[path].gz[query]',

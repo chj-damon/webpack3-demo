@@ -21,6 +21,7 @@
     "express": "^4.15.3",
     "graceful-fs": "^4.1.11",
     "moment": "^2.18.1",
+    "normalize.css": "^7.0.0",
     "qs": "^6.5.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
@@ -28,7 +29,8 @@
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
     "redux": "^3.7.2",
-    "seamless-immutable": "^7.1.2"
+    "seamless-immutable": "^7.1.2",
+    "webpack-dashboard": "^1.0.0-5"
   },
   "devDependencies": {
     "autodll-webpack-plugin": "^0.2.1",
