@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter as Router } from 'react-router-dom';
 import 'normalize.css';
 import './base.css';
-import App from './pages/App/App';
+import App from './pages/App';
 
 ReactDOM.render(
     <Router>
