@@ -10,12 +10,13 @@ class D3Demo extends PureComponent {
         };
     }
     componentDidMount() {
+        const x = d3.scaleLinear().domain([0, d3.max(this.state.data)]).range([0, 420]);
         d3.select('.chart')
             .selectAll('div')
             .data(this.state.data)
             .enter()
             .append('div')
-            .style('width', d => `${d * 10}px`)
+            .style('width', d => `${x(d)}px`)
             .text(d => d);
     }
     
